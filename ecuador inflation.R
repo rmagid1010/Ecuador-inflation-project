@@ -4,6 +4,7 @@ library(readxl)
 library(vars)
 library(ggplot2)
 library(urca)
+library(e1071)
 
 #### Loading Data ####
 
@@ -14,6 +15,18 @@ colnames(data) <- c('date','cpi', 'ppi')
 data$cpi <- data$cpi / 100
 data$ppi <- data$ppi / 100
 
+#### Summary Statistics ####
+head(data)
+summary(data)
+mn <- cbind((mean(data$cpi)), mean(data$ppi))
+sd <- cbind(sd(data$cpi), sd(data$ppi))
+sk <- cbind(skewness(data$cpi), skewness(data$ppi))
+kt <- cbind(kurtosis(data$cpi), kurtosis(data$ppi))
+
+tab <- as.data.frame(rbind(mn,sd,sk,kt))
+rownames(tab) <- c('Mean', 'Standard Deviation', 'Skewness', 'Kurtosis')
+colnames(tab) <- c('CPI', 'PPI')
+print(tab)
 ##### Data Visualisation ####
 
 matplot(cbind(data$cpi, data$ppi), type="l")
