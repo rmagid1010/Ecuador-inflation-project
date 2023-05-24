@@ -8,7 +8,6 @@ library(e1071)
 
 #### Loading Data ####
 
-setwd("~/R/ecuador inflation")
 data <- read.csv('CPI_and_PPI.csv')
 data <- data[-1]
 colnames(data) <- c('date','cpi', 'ppi')
@@ -54,4 +53,7 @@ causality(model, cause='ppi')
 #### Plotting IRF ####
 
 feir <- irf(model, impulse="ppi", response="cpi", n.ahead = 8, ortho = TRUE, runs = 1000)
+
 plot(feir)
+
+plot("Hello world")
